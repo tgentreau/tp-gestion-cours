@@ -1,0 +1,7 @@
+{
+  "name": "gestion-cours",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
