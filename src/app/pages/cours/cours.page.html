@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Liste des cours</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+      <ion-button (click)="openMenu($event)">
+        <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()" color="danger">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid [fixed]="true">
+    <ion-row>
+      <ion-col>
+        <ion-searchbar (ionChange)="search($event)"></ion-searchbar>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <a routerLink="add">Ajoutez un nouveau cours</a>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-item>
+        <ion-col
+          *ngIf="boolCours"
+          style="cursor: pointer"
+          (click)="sortAlphabeticalCoursAsc()"
+        >
+          Nom du cours
+          <ion-icon name="caret-up-outline"></ion-icon>
+        </ion-col>
+        <ion-col
+          *ngIf="!boolCours"
+          style="cursor: pointer"
+          (click)="sortAlphabeticalCoursDesc()"
+        >
+          Nom du Cours
+          <ion-icon name="caret-down-outline"></ion-icon>
+        </ion-col>
+        <ion-col>Nom du professeur</ion-col>
+        <ion-col>Photo du professeur</ion-col>
+        <ion-col
+          *ngIf="boolEtudiant"
+          style="cursor: pointer"
+          (click)="sortNumberAsc()"
+        >
+          Nombre d'étudiants
+          <ion-icon name="caret-up-outline"></ion-icon>
+        </ion-col>
+        <ion-col
+          *ngIf="!boolEtudiant"
+          style="cursor: pointer"
+          (click)="sortNumberDesc()"
+        >
+          Nombre d'étudiants
+          <ion-icon name="caret-down-outline"></ion-icon>
+        </ion-col>
+      </ion-item>
+    </ion-row>
+    <ion-row *ngFor="let cours of allCours">
+        <ion-col size="3">{{cours.nom}}</ion-col>
+        <ion-col size="3">{{getProfName(cours.professeurId)}}</ion-col>
+        <ion-col size="3">
+          <ion-img [src]="getProfPhoto(cours.professeurId)"></ion-img></ion-col>
+        <ion-col size="2">{{cours.nbEleves}}</ion-col>
+        <ion-col size="1">
+          <ion-icon
+            name="trash"
+            style="cursor: pointer;"
+            color="danger"
+            (click)="consentForDelete(cours)"></ion-icon>
+        </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

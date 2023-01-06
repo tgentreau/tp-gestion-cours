@@ -1,0 +1,23 @@
+{
+  "utilisateur": [
+    {
+      "username": "roger",
+      "password": "rogermarcel",
+      "id": 1
+    },
+    {
+      "username": "marcel",
+      "password": "marcelroger",
+      "id": 2
+    }
+  ],
+  "cours": [
+    {
+      "nom": "test",
+      "nbEleves": 12,
+      "professeurId": 1,
+      "id": 1
+    }
+  ],
+  "professeur": []
+}

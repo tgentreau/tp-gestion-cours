@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ajoutez un cours</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+      <ion-button (click)="openMenu($event)">
+        <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()" color="danger">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col>
+        <form
+          #f="ngForm"
+          (ngSubmit)="f.form.valid && onSubmit(f)"
+        >
+          <ion-item class="ion-margin">
+            <ion-label position="floating">Nom du cours</ion-label>
+            <ion-input
+              [clearInput]="true"
+              [(ngModel)]="form.nomCours"
+              #nomCours="ngModel"
+              name="nomCours"
+              required="true"
+              minlength="3"
+            ></ion-input>
+            <div *ngIf="nomCours.errors && f.submitted">
+              <ion-note *ngIf="nomCours.errors?.['required']" style="color: #eb445a">
+                Le nom du cours est requis
+              </ion-note>
+              <ion-note *ngIf="nomCours.errors['minlength']" style="color: #eb445a">
+                Le nom du cours doit faire au minimum 3 caractères
+              </ion-note>
+            </div>
+          </ion-item>
+          <ion-item class="ion-margin">
+            <ion-label position="floating">Nombre d'étudiants</ion-label>
+            <ion-input
+              type="number"
+              [(ngModel)]="form.nbEtudiants"
+              #nbEtudiants="ngModel"
+              name="nbEtudiants"
+              [clearInput]="true"
+              required="true"
+            ></ion-input>
+            <div *ngIf="nbEtudiants.errors && f.submitted">
+              <ion-note *ngIf="nbEtudiants.errors?.['required']" style="color: #eb445a">
+                Le nombre d'étudiants est requis
+              </ion-note>
+            </div>
+          </ion-item>
+          <ion-item class="ion-margin">
+            <ion-select
+              interface="action-sheet"
+              placeholder="Professeur"
+              [(ngModel)]="form.professeur"
+              #professeur="ngModel"
+              name="professeur"
+              required="true"
+            >
+              <ion-select-option *ngFor="let prof of professeurs" value={{prof.id}}>{{prof.prenom}} {{prof.nom}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-button color="success" class="ion-margin" expand="block" type="submit">Ajoutez</ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Liste des professeurs</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+      <ion-button (click)="openMenu($event)">
+        <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()" color="danger">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid [fixed]="true">
+    <ion-row>
+      <ion-col>
+        <ion-searchbar (ionChange)="search($event)"></ion-searchbar>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <a routerLink="add">Ajoutez un nouveau professeur</a>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-item>
+        <ion-col
+          *ngIf="boolPrenomProf"
+          style="cursor: pointer"
+          (click)="sortAlphabeticalPrenomProfAsc()"
+        >
+          Prénom du professeur
+          <ion-icon name="caret-up-outline"></ion-icon>
+        </ion-col>
+        <ion-col
+          *ngIf="!boolPrenomProf"
+          style="cursor: pointer"
+          (click)="sortAlphabeticalPrenomProfDesc()"
+        >
+          Prénom du professeur
+          <ion-icon name="caret-down-outline"></ion-icon>
+        </ion-col>
+        <ion-col
+          *ngIf="boolNomProf"
+          style="cursor: pointer"
+          (click)="sortAlphabeticalNomProfAsc()"
+        >
+          Nom du professeur
+          <ion-icon name="caret-up-outline"></ion-icon>
+        </ion-col>
+        <ion-col
+          *ngIf="!boolNomProf"
+          style="cursor: pointer"
+          (click)="sortAlphabeticalNomProfDesc()"
+        >
+          Nom du professeur
+          <ion-icon name="caret-down-outline"></ion-icon>
+        </ion-col>
+        <ion-col>
+          Photo du professeur
+        </ion-col>
+        <ion-col
+          *ngIf="boolAge"
+          style="cursor: pointer"
+          (click)="sortNumberAsc()"
+        >
+          Age du professeur
+          <ion-icon name="caret-up-outline"></ion-icon>
+        </ion-col>
+        <ion-col
+          *ngIf="!boolAge"
+          style="cursor: pointer"
+          (click)="sortNumberDesc()"
+        >
+          Age du professeur
+          <ion-icon name="caret-down-outline"></ion-icon>
+        </ion-col>
+      </ion-item>
+    </ion-row>
+    <ion-row *ngFor="let prof of allProfs">
+      <ion-col size="3">{{prof.prenom}}</ion-col>
+      <ion-col size="3">{{prof.nom}}</ion-col>
+      <ion-col size="2">
+        <ion-img [src]="prof.photo"></ion-img>
+      </ion-col>
+      <ion-col size="3">{{prof.age}}</ion-col>
+      <ion-col size="1">
+        <ion-icon
+          name="trash"
+          style="cursor: pointer;"
+          color="danger"
+          (click)="consentForDelete(prof)"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

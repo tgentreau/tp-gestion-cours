@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>SignIn</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="10" class="ion-text-center">
+        <h2>Créer un compte</h2>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col>
+        <form
+          #f="ngForm"
+          (ngSubmit)="f.form.valid && onSubmit(f)"
+        >
+          <ion-item class="ion-margin">
+            <ion-label position="floating">Pseudo</ion-label>
+            <ion-input
+              [clearInput]="true"
+              [(ngModel)]="form.username"
+              #username="ngModel"
+              name="username"
+              required="true"
+              minlength="3"
+            ></ion-input>
+            <div *ngIf="username.errors && f.submitted">
+              <ion-note *ngIf="username.errors?.['required']" style="color: #eb445a">
+                Le pseudo est requis
+              </ion-note>
+              <ion-note *ngIf="username.errors['minlength']" style="color: #eb445a">
+                Le pseudo doit faire au minimum 3 caractères
+              </ion-note>
+            </div>
+          </ion-item>
+          <ion-item class="ion-margin">
+            <ion-label position="floating">Mot de passe</ion-label>
+            <ion-input
+              type="password"
+              [(ngModel)]="form.password"
+              #password="ngModel"
+              name="password"
+              [clearInput]="true"
+              required="true"
+              minlength="4"
+            ></ion-input>
+            <div *ngIf="password.errors && f.submitted">
+              <ion-note *ngIf="password.errors?.['required']" style="color: #eb445a">
+                Le mot de passe est requis
+              </ion-note>
+              <ion-note *ngIf="password.errors['minlength']" style="color: #eb445a">
+                Le mot de passe doit faire au minimum 4 caractères
+              </ion-note>
+            </div>
+          </ion-item>
+          <p class="ion-text-center">Vous avez déjà un compte ? <br><a routerLink="/login">Se connecter</a></p>
+          <ion-button color="primary" class="ion-margin" expand="block" type="submit">Créer un compte</ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ajoutez un professeur</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+      <ion-button (click)="openMenu($event)">
+        <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()" color="danger">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col>
+        <form
+          #f="ngForm"
+          (ngSubmit)="f.form.valid && onSubmit(f)"
+        >
+          <ion-item class="ion-margin">
+            <ion-label position="floating">Nom</ion-label>
+            <ion-input
+              [clearInput]="true"
+              [(ngModel)]="form.nom"
+              #nom="ngModel"
+              name="nom"
+              required="true"
+              minlength="3"
+            ></ion-input>
+            <div *ngIf="nom.errors && f.submitted">
+              <ion-note *ngIf="nom.errors?.['required']" style="color: #eb445a">
+                Le nom est requis
+              </ion-note>
+              <ion-note *ngIf="nom.errors['minlength']" style="color: #eb445a">
+                Le nom doit faire au minimum 3 caractères
+              </ion-note>
+            </div>
+          </ion-item>
+          <ion-item class="ion-margin">
+            <ion-label position="floating">Prénom</ion-label>
+            <ion-input
+              [(ngModel)]="form.prenom"
+              #prenom="ngModel"
+              name="prenom"
+              [clearInput]="true"
+              required="true"
+              minlength="3"
+            ></ion-input>
+            <div *ngIf="prenom.errors && f.submitted">
+              <ion-note *ngIf="prenom.errors?.['required']" style="color: #eb445a">
+                Le prénom est requis
+              </ion-note>
+              <ion-note *ngIf="prenom.errors['minlength']" style="color: #eb445a">
+                Le prénom doit faire au minimum 3 caractères
+              </ion-note>
+            </div>
+          </ion-item>
+          <ion-item class="ion-margin">
+            <ion-label position="floating">Age</ion-label>
+            <ion-input
+              type="number"
+              [(ngModel)]="form.age"
+              #age="ngModel"
+              name="age"
+              [clearInput]="true"
+              required="true"
+            ></ion-input>
+            <div *ngIf="age.errors && f.submitted">
+              <ion-note *ngIf="age.errors?.['required']" style="color: #eb445a">
+                L'age est requis
+              </ion-note>
+            </div>
+          </ion-item>
+          <ion-button
+            color="primary"
+            class="ion-margin"
+            (click)="addPhoto()"
+          >
+            Prendre une photo
+          </ion-button>
+          <ion-button color="success" class="ion-margin" expand="block" type="submit">Ajoutez</ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
